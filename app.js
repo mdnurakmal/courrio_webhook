@@ -68,7 +68,7 @@ router.get('/webhook', async (request, response) => {
 console.log("triggered");
 
 	response.status(200);
-	response.send("triggered"));
+	response.send("triggered");
 
 });
 
