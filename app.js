@@ -32,9 +32,8 @@ async function getAllWebhooks() {
 		console.log('Document data:', doc.data());
 		for (var i = 0; i < doc.data()["db"].length; i++) {
 			console.log(doc.data()["db"][i]["webhook_url"]);
-			//Do something
+			db.push(doc.data()["db"][i]["webhook_url"]);
 		}
-
 	}
 }
 
@@ -74,9 +73,19 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 
-//courrio get order API
+//update webhook db 
 router.post('/webhook', async (request, response) => {
-console.log("triggered");
+	console.log("updating webhook db");
+	getAllWebhooks();
+
+	response.status(200);
+	response.send("updating webhook db");
+
+});
+
+//update webhook db 
+router.post('/push_webhook', async (request, response) => {
+	console.log("updating webhook db");
 
 	for (var i in db) {
 
@@ -100,8 +109,6 @@ console.log("triggered");
 	response.send("triggered");
 
 });
-
-
 
 
 app.use("/", router);
