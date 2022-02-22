@@ -88,10 +88,10 @@ router.post('/webhook', async (request, response) => {
 router.post('/push_webhook', async (request, response) => {
 
 	for (var i in db) {
-		console.log("pushing webhook" + db["webhook_url"]);
+	
 		try {
 			const myURL = new URL( db["webhook_url"]);
-
+			console.log("pushing webhook" + db["webhook_url"]);
 			await axios
 			.post(db["webhook_url"], {
 				"data": response.body
