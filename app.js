@@ -50,8 +50,8 @@ async function getAllWebhooks() {
 
 // refresh webhook db whenever theres a change in firestore
 function updateWebhookDB() {
-	//listenWebhook()
-	getAllWebhooks()
+	listenWebhook()
+	//getAllWebhooks()
 }
 
 updateWebhookDB();
@@ -64,8 +64,8 @@ app.use(bodyParser.json());
 
 
 //courrio get order API
-router.post('/webhook', async (request, response) => {
-
+router.get('/webhook', async (request, response) => {
+console.log("triggered");
 });
 
 
