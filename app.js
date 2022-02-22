@@ -23,7 +23,7 @@ var db = [];
 
 async function getAllWebhooks() {
 	db = [];
-	const customersRef = firestore.collection('customers');
+	const customersRef = firestore.collection('webhooks_db');
 	const snapshot = await customersRef.get();
 	if (snapshot.empty) {
 		console.log('No matching documents.');
