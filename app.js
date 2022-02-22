@@ -20,21 +20,8 @@ const {
 // Create a new client
 const firestore = new Firestore();
 
-async function listenWebhook() {
-	// webhook
-
-	const dbRef = firestore.collection('customers');
-	const observer = dbRef.onSnapshot(docSnapshot => {
-		console.log(docSnapshot.data());
-
-	}, err => {
-		console.log(`Encountered error: ${err}`);
-	});
-
-}
-
-
 async function getAllWebhooks() {
+	var db = [];
 	const customersRef = firestore.collection('customers');
 	const snapshot = await customersRef.get();
 	if (snapshot.empty) {
@@ -43,16 +30,26 @@ async function getAllWebhooks() {
 	} else {
 		snapshot.forEach(async doc => {
 			console.log(doc.id, '=>', doc.data()["webhook_url"]);
+			db.push({"webhook_url":doc.data()["webhook_url"],"api_key":doc.data()["api_key"]})
 			return;
 		});
+
+		createWebhooks(db);
 	}
 }
 
 // refresh webhook db whenever theres a change in firestore
 function updateWebhookDB() {
-	//listenWebhook()
-	//getAllWebhooks()
+	getAllWebhooks()
 }
+
+async function createWebhooks(db) {
+
+	const res = await firestore.collection('webhooks_db').add({
+		db
+	});
+  
+  }
 
 updateWebhookDB();
 
