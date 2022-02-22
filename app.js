@@ -32,7 +32,7 @@ async function getAllWebhooks() {
 		console.log('Document data:', doc.data());
 		for (i in doc.data()["db"])
 		{
-			console.log(i);
+			console.log(i["webhook_url"]);
 		}
 	}
 }
