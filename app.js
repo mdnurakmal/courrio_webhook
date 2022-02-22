@@ -23,22 +23,17 @@ var db = [];
 
 async function getAllWebhooks() {
 	db = [];
-	const customersRef = firestore.collection('webhooks_db');
-	const snapshot = await customersRef.get();
-	if (snapshot.empty) {
-		console.log('No matching documents.');
-		return;
+
+	const webhookRef = firestore.collection('webhooks_db').doc('rbeKL9vwy412M1k7adr6');
+	const doc = await webhookRef.get();
+	if (!doc.exists) {
+	console.log('No such document!');
 	} else {
-		snapshot.forEach(async doc => {
-
-			doc.forEach(row => {
-
-				console.log(row["webhook_url"]);
-				db.push({"webhook_url":row["webhook_url"],"api_key":row["api_key"]})
-			})
-
-			return;
-		});
+		console.log('Document data:', doc.data());
+		for (i in doc.data())
+		{
+			console.log(i);
+		}
 	}
 }
 
