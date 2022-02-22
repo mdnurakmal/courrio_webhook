@@ -50,8 +50,8 @@ async function getAllWebhooks() {
 
 // refresh webhook db whenever theres a change in firestore
 function updateWebhookDB() {
-	customer.listenWebhook()
-	//customer.getAllWebhooks()
+	listenWebhook()
+	//getAllWebhooks()
 }
 
 updateWebhookDB();
