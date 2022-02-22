@@ -64,7 +64,7 @@ app.use(bodyParser.json());
 
 
 //courrio get order API
-router.get('/webhook', async (request, response) => {
+router.post('/webhook', async (request, response) => {
 console.log("triggered");
 
 	response.status(200);
