@@ -29,7 +29,7 @@ async function getAllWebhooks() {
 	if (!doc.exists) {
 	console.log('No such document!');
 	} else {
-		console.log('Document data:', doc.data());
+		//console.log('Document data:', doc.data());
 		for (var i = 0; i < doc.data()["db"].length; i++) {
 			console.log(doc.data()["db"][i]["webhook_url"]);
 			db.push(doc.data()["db"][i]["webhook_url"]);
@@ -83,12 +83,11 @@ router.post('/webhook', async (request, response) => {
 
 });
 
-//update webhook db 
+//pushing webhook
 router.post('/push_webhook', async (request, response) => {
-	console.log("updating webhook db");
 
 	for (var i in db) {
-
+		console.log("pushing webhook" + db["webhook_url"]);
 		await axios
 		.post(db["webhook_url"], {
 			"data": response.body
