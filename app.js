@@ -30,8 +30,13 @@ async function getAllWebhooks() {
 		return;
 	} else {
 		snapshot.forEach(async doc => {
-			console.log(doc.id, '=>', doc.data()["webhook_url"]);
-			db.push({"webhook_url":doc.data()["webhook_url"],"api_key":doc.data()["api_key"]})
+
+			doc.forEach(row => {
+
+				console.log(row["webhook_url"]);
+				db.push({"webhook_url":row["webhook_url"],"api_key":row["api_key"]})
+			})
+
 			return;
 		});
 	}
