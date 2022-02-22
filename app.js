@@ -30,7 +30,7 @@ async function getAllWebhooks() {
 	console.log('No such document!');
 	} else {
 		console.log('Document data:', doc.data());
-		for (var i = 0; i < doc.data()["db"]; i++) {
+		for (var i = 0; i < doc.data()["db"].length; i++) {
 			console.log(doc.data()["db"][i]["webhook_url"]);
 			//Do something
 		}
