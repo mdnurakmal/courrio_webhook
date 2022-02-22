@@ -87,15 +87,14 @@ router.post('/webhook', async (request, response) => {
 //pushing webhook
 router.post('/push_webhook', async (request, response) => {
 
+	console.log("body" + request.body);
 	for (var i = 0; i < db.length; i++) {
 	
 		try {
 			const myURL = new URL( db[i]);
 			console.log("pushing webhook" +db[i]);
 			await axios
-			.post(db[i], {
-				"data": response.body
-			})
+			.post(db[i],  request.body)
 			.then(res => {
 	
 				response.status(res.status);
