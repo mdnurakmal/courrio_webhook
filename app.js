@@ -10,6 +10,7 @@ const distance = require('google-distance-matrix');
 distance.key(process.env.MAP_API_KEY);
 const app = express();
 const router = express.Router();
+const url = require('url');    
 
 const axios = require('axios');
 
@@ -88,24 +89,29 @@ router.post('/push_webhook', async (request, response) => {
 
 	for (var i in db) {
 		console.log("pushing webhook" + db["webhook_url"]);
-		await axios
-		.post(db["webhook_url"], {
-			"data": response.body
-		})
-		.then(res => {
+		try {
+			const myURL = new URL( db["webhook_url"]);
 
-			response.status(res.status);
-			response.send(res.data);
-		})
-		.catch(error => {
-			console.error(error)
-			response.statusCode = 401;
-			response.send(error);
-		})
+			await axios
+			.post(db["webhook_url"], {
+				"data": response.body
+			})
+			.then(res => {
+	
+				response.status(res.status);
+				response.send(res.data);
+			})
+			.catch(error => {
+				console.error(error)
+				response.statusCode = 401;
+				response.send(error);
+			})
+
+		  } catch (error) {
+			console.log(`${Date().toString()}: ${error.input} is not a valid url`);
+		  }
+
 	}
-
-	response.status(200);
-	response.send("triggered");
 
 });
 
