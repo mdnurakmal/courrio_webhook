@@ -65,16 +65,14 @@ async function createWebhooks(db) {
 
 function filterWebhookRes(res)
 {
-	console.log("Webhook event received:" + res["template_key"])
 
-	console.log("Webhook event received:" + res["custom_fields"][0]["template_id"])
-	if(res["template_key"]=="REQUEST_RECEIVED")
+	if(res["template_key"]=="REQUEST_RECEIVED" && res["custom_fields"][0]["template_id"].split('_'[1]=="Pickup"))
 	{
-		console.log("New Order")
+		console.log("New Pickup Order")
 	}
-	else if(res["template_key"]=="REQUEST_RECEIVED")
+	else if(res["template_key"]=="REQUEST_RECEIVED" && res["custom_fields"][0]["template_id"].split('_'[1]=="Delivery"))
 	{
-
+		console.log("New Delivery Order")
 	}
 	else if(res["template_key"]=="REQUEST_RECEIVED")
 	{
@@ -129,6 +127,7 @@ router.post('/push_webhook', async (request, response) => {
 				response.send(res.data);
 			})
 			.catch(error => {
+				// if error , webhook url is invalid , no server is listening on it
 				console.error(error)
 				response.statusCode = 401;
 				response.send(error);
