@@ -66,46 +66,76 @@ async function createWebhooks(db) {
 function filterWebhookRes(res)
 {
 	console.log(res)
+	var newData = {};
 	if(res["template_key"]=="REQUEST_RECEIVED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Pickup")
 	{
+		newData=res;
 		console.log("New Pickup Order")
 	}
 	else if(res["template_key"]=="REQUEST_RECEIVED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Delivery")
 	{
+		newData=res;
 		console.log("New Delivery Order")
 	}
 	else if(res["template_key"]=="AGENT_STARTED" && res["custom_fields[0][template_id]"].split('_')[1]=="Pickup")
 	{
+		newData["job_id"]=res["job_id"]
+		newData["order_id"]=res["order_id"]
+		newData["started_datetime"]=res["started_datetime"]
+		newData["job_state"]=res["job_state"]
+
 		console.log("Pickup agent started")
 	}
 	else if(res["template_key"]=="AGENT_STARTED" && res["custom_fields[0][template_id]"].split('_')[1]=="Delivery")
 	{
+		newData["job_id"]=res["job_id"]
+		newData["order_id"]=res["order_id"]
+		newData["started_datetime"]=res["started_datetime"]
+		newData["job_state"]=res["job_state"]
 		console.log("Delivery agent started")
 	}
 	else if(res["template_key"]=="SUCCESSFUL" && res["custom_fields[0][template_id]"].split('_')[1]=="Pickup")
 	{
+		newData["job_id"]=res["job_id"]
+		newData["order_id"]=res["order_id"]
+		newData["completed_datetime"]=res["completed_datetime"]
+		newData["job_state"]=res["job_state"]
 		console.log("Pickup SUCCESSFUL")
 	}
 	else if(res["template_key"]=="SUCCESSFUL" && res["custom_fields[0][template_id]"].split('_')[1]=="Delivery")
 	{
+		newData["job_id"]=res["job_id"]
+		newData["order_id"]=res["order_id"]
+		newData["completed_datetime"]=res["completed_datetime"]
+		newData["job_state"]=res["job_state"]
 		console.log("Delivery SUCCESSFUL")
 	}
 	else if(res["template_key"]=="FAILED" && res["custom_fields[0][template_id]"].split('_')[1]=="Pickup")
 	{
+		newData["job_id"]=res["job_id"]
+		newData["order_id"]=res["order_id"]
+		newData["completed_datetime"]=res["arrived_datetime"]
+		newData["job_state"]=res["job_state"]
 		console.log("Pickup FAILED")
 	}
 	else if(res["template_key"]=="FAILED" && res["custom_fields[0][template_id]"].split('_')[1]=="Delivery")
 	{
+		newData["job_id"]=res["job_id"]
+		newData["order_id"]=res["order_id"]
+		newData["completed_datetime"]=res["arrived_datetime"]
+		newData["job_state"]=res["job_state"]
 		console.log("Delivery FAILED")
-	}
-	else if(res["template_key"]=="FAILED" && res["custom_fields[0][template_id]"].split('_')[1]=="Pickup")
-	{
-		console.log("Pickup FAILED")
 	}
 	else if(res["template_key"]=="AGENT_ARRIVED" && res["custom_fields[0][template_id]"].split('_')[1]=="Delivery")
 	{
+		newData["job_id"]=res["job_id"]
+		newData["order_id"]=res["order_id"]
+		newData["arrived_datetime"]=res["arrived_datetime"]
+		newData["job_state"]=res["job_state"]
 		console.log("Delivery courier arrived")
 	}
+
+	return newData;
 }
 
 //generateWebhookDB();
@@ -131,7 +161,7 @@ router.post('/webhook', async (request, response) => {
 //TODO: Test performance when handling 1k concurrent webhooks
 router.post('/push_webhook', async (request, response) => {
 	
-	filterWebhookRes(request.body);
+	var data = filterWebhookRes(request.body);
 
 	//console.log("body" + JSON.stringify(request.body));
 	for (var i = 0; i < db.length; i++) {
@@ -147,7 +177,7 @@ router.post('/push_webhook', async (request, response) => {
 			.then(res => {
 	
 				response.status(res.status);
-				response.send(res.data);
+				response.send(data);
 			})
 			.catch(error => {
 
