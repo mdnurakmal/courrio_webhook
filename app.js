@@ -66,11 +66,11 @@ async function createWebhooks(db) {
 function filterWebhookRes(res)
 {
 
-	if(res["template_key"]=="REQUEST_RECEIVED" && res["custom_fields"][0]["template_id"].split('_'[1]=="Pickup"))
+	if(res["template_key"]=="REQUEST_RECEIVED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Pickup")
 	{
 		console.log("New Pickup Order")
 	}
-	else if(res["template_key"]=="REQUEST_RECEIVED" && res["custom_fields"][0]["template_id"].split('_'[1]=="Delivery"))
+	else if(res["template_key"]=="REQUEST_RECEIVED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Delivery")
 	{
 		console.log("New Delivery Order")
 	}
@@ -117,7 +117,10 @@ router.post('/push_webhook', async (request, response) => {
 	for (var i = 0; i < db.length; i++) {
 	
 		try {
+
+			//will throw error if url is not valid
 			const myURL = new URL( db[i]);
+
 			console.log("pushing webhook" +db[i]);
 			await axios
 			.post(db[i],  request.body)
@@ -127,6 +130,7 @@ router.post('/push_webhook', async (request, response) => {
 				response.send(res.data);
 			})
 			.catch(error => {
+
 				// if error , webhook url is invalid , no server is listening on it
 				console.error(error)
 				response.statusCode = 401;
