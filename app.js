@@ -65,7 +65,7 @@ async function createWebhooks(db) {
 
 function filterWebhookRes(res)
 {
-
+	console.log(res)
 	if(res["template_key"]=="REQUEST_RECEIVED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Pickup")
 	{
 		console.log("New Pickup Order")
