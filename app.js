@@ -1,6 +1,4 @@
 const https = require('https');
-var moment = require('moment-timezone');
-const momentDefault = require('moment');
 const http = require('http');
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -121,7 +119,6 @@ router.post('/push_webhook', async (request, response) => {
 	for (var i = 0; i < db.length; i++) {
 	
 		try {
-			const myURL = new URL( db[i]);
 			console.log("pushing webhook" +db[i]);
 			await axios
 			.post(db[i],  request.body)
