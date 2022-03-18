@@ -173,11 +173,11 @@ router.post('/push_webhook', async (request, response) => {
 
 			console.log("pushing webhook" +db[i]);
 			await axios
-			.post(db[i],  request.body)
+			.post(db[i],  data)
 			.then(res => {
 	
 				response.status(res.status);
-				response.send(data);
+				response.send(res.data);
 			})
 			.catch(error => {
 
