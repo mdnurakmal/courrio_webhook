@@ -65,7 +65,7 @@ async function createWebhooks(db) {
 
 function filterWebhookRes(res)
 {
-	console.log(res)
+	//console.log(res)
 	var newData = {};
 	if(res["template_key"]=="REQUEST_RECEIVED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Pickup")
 	{
@@ -75,6 +75,7 @@ function filterWebhookRes(res)
 	else if(res["template_key"]=="REQUEST_RECEIVED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Delivery")
 	{
 		newData=res;
+
 		console.log("New Delivery Order")
 	}
 	else if(res["template_key"]=="AGENT_STARTED" && res["custom_fields[0][template_id]"].split('_')[1]=="Pickup")
