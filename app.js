@@ -74,35 +74,35 @@ function filterWebhookRes(res)
 	{
 		console.log("New Delivery Order")
 	}
-	else if(res["template_key"]=="AGENT_STARTED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Pickup")
+	else if(res["template_key"]=="AGENT_STARTED" && res["custom_fields[0][template_id]"].split('_')[1]=="Pickup")
 	{
 		console.log("Pickup agent started")
 	}
-	else if(res["template_key"]=="AGENT_STARTED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Delivery")
+	else if(res["template_key"]=="AGENT_STARTED" && res["custom_fields[0][template_id]"].split('_')[1]=="Delivery")
 	{
 		console.log("Delivery agent started")
 	}
-	else if(res["template_key"]=="SUCCESSFUL" && res["custom_fields"][0]["template_id"].split('_')[1]=="Pickup")
+	else if(res["template_key"]=="SUCCESSFUL" && res["custom_fields[0][template_id]"].split('_')[1]=="Pickup")
 	{
 		console.log("Pickup SUCCESSFUL")
 	}
-	else if(res["template_key"]=="SUCCESSFUL" && res["custom_fields"][0]["template_id"].split('_')[1]=="Delivery")
+	else if(res["template_key"]=="SUCCESSFUL" && res["custom_fields[0][template_id]"].split('_')[1]=="Delivery")
 	{
 		console.log("Delivery SUCCESSFUL")
 	}
-	else if(res["template_key"]=="FAILED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Pickup")
+	else if(res["template_key"]=="FAILED" && res["custom_fields[0][template_id]"].split('_')[1]=="Pickup")
 	{
 		console.log("Pickup FAILED")
 	}
-	else if(res["template_key"]=="FAILED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Delivery")
+	else if(res["template_key"]=="FAILED" && res["custom_fields[0][template_id]"].split('_')[1]=="Delivery")
 	{
 		console.log("Delivery FAILED")
 	}
-	else if(res["template_key"]=="FAILED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Pickup")
+	else if(res["template_key"]=="FAILED" && res["custom_fields[0][template_id]"].split('_')[1]=="Pickup")
 	{
 		console.log("Pickup FAILED")
 	}
-	else if(res["template_key"]=="AGENT_ARRIVED" && res["custom_fields"][0]["template_id"].split('_')[1]=="Delivery")
+	else if(res["template_key"]=="AGENT_ARRIVED" && res["custom_fields[0][template_id]"].split('_')[1]=="Delivery")
 	{
 		console.log("Delivery courier arrived")
 	}
