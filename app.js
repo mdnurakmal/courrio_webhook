@@ -65,6 +65,33 @@ async function createWebhooks(db) {
   
   }
 
+function filterWebhookRes(res)
+{
+	console.log("Webhook event received:" + res["template_key"])
+
+	console.log("Webhook event received:" + res["custom_fields"][0]["template_id"])
+	if(res["template_key"]=="REQUEST_RECEIVED")
+	{
+		console.log("New Order")
+	}
+	else if(res["template_key"]=="REQUEST_RECEIVED")
+	{
+
+	}
+	else if(res["template_key"]=="REQUEST_RECEIVED")
+	{
+		
+	}
+	else if(res["template_key"]=="REQUEST_RECEIVED")
+	{
+		
+	}
+	else if(res["template_key"]=="REQUEST_RECEIVED")
+	{
+		
+	}
+}
+
 //generateWebhookDB();
 getAllWebhooks();
 
@@ -84,8 +111,11 @@ router.post('/webhook', async (request, response) => {
 
 });
 
-//pushing webhook
+//pushing webhook 
+//TODO: Test performance when handling 1k concurrent webhooks
 router.post('/push_webhook', async (request, response) => {
+	
+	filterWebhookRes(request.body);
 
 	//console.log("body" + JSON.stringify(request.body));
 	for (var i = 0; i < db.length; i++) {
@@ -113,6 +143,8 @@ router.post('/push_webhook', async (request, response) => {
 	}
 
 });
+
+
 
 
 app.use("/", router);
