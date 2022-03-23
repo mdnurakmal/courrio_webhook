@@ -83,7 +83,7 @@ function filterWebhookRes(res)
 		newData["job_id"]=res["job_id"]
 		newData["order_id"]=res["order_id"]
 		newData["started_datetime"]=res["started_datetime"]
-		newData["job_state"]=res["job_state"]
+		newData["job_state"]="Pickup Started"
 
 		console.log("Pickup agent started")
 	}
@@ -92,7 +92,7 @@ function filterWebhookRes(res)
 		newData["job_id"]=res["job_id"]
 		newData["order_id"]=res["order_id"]
 		newData["started_datetime"]=res["started_datetime"]
-		newData["job_state"]=res["job_state"]
+		newData["job_state"]="Delivery Started"
 		console.log("Delivery agent started")
 	}
 	else if(res["template_key"]=="SUCCESSFUL" && res["custom_fields[0][template_id]"].split('_')[1]=="Pickup")
@@ -100,7 +100,7 @@ function filterWebhookRes(res)
 		newData["job_id"]=res["job_id"]
 		newData["order_id"]=res["order_id"]
 		newData["completed_datetime"]=res["completed_datetime"]
-		newData["job_state"]=res["job_state"]
+		newData["job_state"]="Pickup Successful"
 		console.log("Pickup SUCCESSFUL")
 	}
 	else if(res["template_key"]=="SUCCESSFUL" && res["custom_fields[0][template_id]"].split('_')[1]=="Delivery")
@@ -108,7 +108,7 @@ function filterWebhookRes(res)
 		newData["job_id"]=res["job_id"]
 		newData["order_id"]=res["order_id"]
 		newData["completed_datetime"]=res["completed_datetime"]
-		newData["job_state"]=res["job_state"]
+		newData["job_state"]="Delivery Successful"
 		console.log("Delivery SUCCESSFUL")
 	}
 	else if(res["template_key"]=="FAILED" && res["custom_fields[0][template_id]"].split('_')[1]=="Pickup")
@@ -116,7 +116,7 @@ function filterWebhookRes(res)
 		newData["job_id"]=res["job_id"]
 		newData["order_id"]=res["order_id"]
 		newData["completed_datetime"]=res["arrived_datetime"]
-		newData["job_state"]=res["job_state"]
+		newData["job_state"]="Pickup Failed"
 		console.log("Pickup FAILED")
 	}
 	else if(res["template_key"]=="FAILED" && res["custom_fields[0][template_id]"].split('_')[1]=="Delivery")
@@ -124,7 +124,7 @@ function filterWebhookRes(res)
 		newData["job_id"]=res["job_id"]
 		newData["order_id"]=res["order_id"]
 		newData["completed_datetime"]=res["arrived_datetime"]
-		newData["job_state"]=res["job_state"]
+		newData["job_state"]="Delivery Failed"
 		console.log("Delivery FAILED")
 	}
 	else if(res["template_key"]=="AGENT_ARRIVED" && res["custom_fields[0][template_id]"].split('_')[1]=="Delivery")
@@ -132,7 +132,7 @@ function filterWebhookRes(res)
 		newData["job_id"]=res["job_id"]
 		newData["order_id"]=res["order_id"]
 		newData["arrived_datetime"]=res["arrived_datetime"]
-		newData["job_state"]=res["job_state"]
+		newData["job_state"]="Delivery Arrived"
 		console.log("Delivery courier arrived")
 	}
 
